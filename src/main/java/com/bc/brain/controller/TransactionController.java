@@ -1,6 +1,9 @@
 package com.bc.brain.controller;
 
 import com.bc.brain.model.transactions.*;
+import com.bc.brain.repository.BlockRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -21,8 +24,13 @@ public class TransactionController {
     private Block block = new Block();
     private boolean blockEnabled = false;
 
+    private static final Logger LOG = LoggerFactory.getLogger(TransactionController.class);
+
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+    @Autowired
+    private BlockRepository blockRepository;
+
 
     @MessageMapping("/transaction")
     @SendTo("/topic/transactions")
