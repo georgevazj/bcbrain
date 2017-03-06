@@ -30,15 +30,6 @@ public class Transaction {
         return value;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "blockId='" + blockId + '\'' +
-                ", concept='" + concept + '\'' +
-                ", value=" + value +
-                '}';
-    }
-
     public void setBlockId(String blockId) {
         this.blockId = blockId;
     }
@@ -49,5 +40,14 @@ public class Transaction {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "blockId:'" + blockId + '\'' +
+                ", concept:'" + concept + '\'' +
+                ", value:" + value +
+                '}';
     }
 }

@@ -19,6 +19,7 @@ public class TransactionController {
 
     private String blockId = "";
     private Block block = new Block();
+    private boolean blockEnabled = false;
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
@@ -42,7 +43,7 @@ public class TransactionController {
     @MessageMapping("/interval")
     @SendTo("/topic/transactions")
     private Interval interval(IntervalMessage message) throws Exception{
+        this.blockEnabled = true;
         return new Interval(message.getConcept() + ": " + message.getInterval());
     }
-
 }
