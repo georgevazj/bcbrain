@@ -2,6 +2,7 @@ package com.bc.brain.controller;
 
 import com.bc.brain.model.transactions.*;
 import com.bc.brain.repository.BlockRepository;
+import com.bc.brain.service.BlockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class TransactionController {
     private SimpMessagingTemplate messagingTemplate;
     @Autowired
     private BlockRepository blockRepository;
+    @Autowired
+    private BlockService blockService;
 
 
     @MessageMapping("/transaction")
