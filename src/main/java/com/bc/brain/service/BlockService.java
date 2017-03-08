@@ -9,5 +9,6 @@ public interface BlockService {
 
     public Block create();
     public Block insert(Block block);
+    public Block getLast();
 
 }

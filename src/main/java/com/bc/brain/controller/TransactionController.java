@@ -25,7 +25,7 @@ public class TransactionController {
     private Block block = new Block();
     private boolean blockEnabled = false;
 
-    private static final Logger LOG = LoggerFactory.getLogger(TransactionController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransactionController.class);
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;

@@ -3,6 +3,7 @@ package com.bc.brain.model.transactions;
 /**
  * Created by jorge on 7/12/16.
  */
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +19,7 @@ public class Block {
 
     @Id
     private String id;
+    private String prevBlock;
     private List<Transaction> transactions = new ArrayList<Transaction>();
 
     public Block() {
@@ -36,9 +38,18 @@ public class Block {
         this.id = id;
     }
 
+    public String getPrevBlock() {
+        return prevBlock;
+    }
+
+    public void setPrevBlock(String prevBlock) {
+        this.prevBlock = prevBlock;
+    }
+
     public List<Transaction> getTransactions() {
         return transactions;
     }
+
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
@@ -48,6 +59,7 @@ public class Block {
     public String toString() {
         return "Block{" +
                 "id='" + id + '\'' +
+                ", prevBlock='" + prevBlock + '\'' +
                 ", transactions=" + transactions +
                 '}';
     }

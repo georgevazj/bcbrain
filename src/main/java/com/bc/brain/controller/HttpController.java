@@ -1,6 +1,7 @@
 package com.bc.brain.controller;
 
 import com.bc.brain.model.transactions.Block;
+import com.bc.brain.repository.BlockRepository;
 import com.bc.brain.service.BlockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +21,12 @@ public class HttpController {
 
     @Autowired
     BlockService blockService;
+    @Autowired
+    BlockRepository blockRepository;
 
     @RequestMapping(value = "/block/new", method = RequestMethod.GET)
     public Block initBlock(){
         Block block = blockService.create();
-        LOGGER.info("Created new block " + block.toString());
         return block;
     }
 
