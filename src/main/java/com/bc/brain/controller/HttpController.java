@@ -1,5 +1,12 @@
 package com.bc.brain.controller;
 
+import com.bc.brain.model.transactions.Block;
+import com.bc.brain.service.BlockService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -8,4 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HttpController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpController.class);
+
+    @Autowired
+    BlockService blockService;
+
+    @RequestMapping(value = "/block/new", method = RequestMethod.GET)
+    public Block initBlock(){
+        Block block = blockService.create();
+        LOGGER.info("Created new block " + block.toString());
+        return block;
+    }
+
 }

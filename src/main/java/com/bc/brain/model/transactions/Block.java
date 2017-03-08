@@ -43,4 +43,12 @@ public class Block {
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "id='" + id + '\'' +
+                ", transactions=" + transactions +
+                '}';
+    }
 }

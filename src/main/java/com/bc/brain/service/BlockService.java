@@ -7,6 +7,7 @@ import com.bc.brain.model.transactions.Block;
  */
 public interface BlockService {
 
-    public void insert(Block block);
+    public Block create();
+    public Block insert(Block block);
 
 }

@@ -21,8 +21,14 @@ public class BlockServiceImpl implements BlockService {
     private BlockRepository blockRepository;
 
     @Override
-    public void insert(Block block) {
-        LOG.info("Saving block " + block);
-        blockRepository.save(block);
+    public Block create() {
+        LOG.info("Creating new block...");
+        Block block = blockRepository.save(new Block());
+        return block;
+    }
+
+    @Override
+    public Block insert(Block block) {
+        return null;
     }
 }
