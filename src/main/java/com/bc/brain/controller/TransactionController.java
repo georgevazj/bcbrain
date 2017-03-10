@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.List;
 
 /**
  * Created by jorge on 7/12/16.
@@ -21,8 +22,6 @@ import java.security.SecureRandom;
 @Controller
 public class TransactionController {
 
-    private String blockId = "";
-    private Block block = new Block();
     private boolean blockEnabled = false;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionController.class);
@@ -30,24 +29,20 @@ public class TransactionController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
     @Autowired
-    private BlockRepository blockRepository;
-    @Autowired
     private BlockService blockService;
+
+    private List<Transaction> transactions;
 
 
     @MessageMapping("/transaction")
     @SendTo("/topic/transactions")
     private Transaction transaction(TransactionMessage message) throws Exception{
-        if (this.blockId.isEmpty()){
-            SecureRandom random = new SecureRandom();
-            this.blockId = new BigInteger(130, random).toString(32);
-            block.setId(this.blockId);
-        }
+        Block lastBlock  = blockService.getLast();
         Transaction transaction = new Transaction();
-        transaction.setBlockId(this.blockId);
+        transaction.setBlockId(lastBlock.getId());
         transaction.setConcept(message.getConcept());
         transaction.setValue(message.getValue());
-        block.getTransactions().add(transaction);
+        this.transactions.add(transaction);
         return transaction;
     }
 
@@ -56,5 +51,15 @@ public class TransactionController {
     private Interval interval(IntervalMessage message) throws Exception{
         this.blockEnabled = true;
         return new Interval(message.getConcept() + ": " + message.getInterval());
+    }
+
+    @MessageMapping("/close")
+    @SendTo("/topic/transactions")
+    private Block closeBlock(TransactionMessage message) throws Exception {
+        Block block = blockService.getLast();
+        block.setTransactions(this.transactions);
+        blockService.insert(block);
+        this.transactions = null;
+        return block;
     }
 }

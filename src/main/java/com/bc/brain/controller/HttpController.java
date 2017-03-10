@@ -26,7 +26,9 @@ public class HttpController {
 
     @RequestMapping(value = "/block/new", method = RequestMethod.GET)
     public Block initBlock(){
+        LOGGER.info("Creating new block...");
         Block block = blockService.create();
+        LOGGER.info(block.toString() + " created.");
         return block;
     }
 
