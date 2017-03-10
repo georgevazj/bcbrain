@@ -57,6 +57,7 @@ public class TransactionController {
     @SendTo("/topic/transactions")
     private Block closeBlock(TransactionMessage message) throws Exception {
         Block block = blockService.getLast();
+        LOGGER.info("Closing block " + block.toString());
         block.setTransactions(this.transactions);
         blockService.insert(block);
         this.transactions = null;
